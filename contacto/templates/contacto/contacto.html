@@ -1,0 +1,30 @@
+{%extends "base.html" %}
+
+{%load static%}
+
+{%block tittle%}
+    Contacto
+{%endblock%}
+   
+
+<!--buscar las dirferencias esntre get y post-->
+<!--Falta la parte de sincronizar con el gmail que google no me deja-->
+{%block content %}
+
+<div class="formularios">
+     {% if "valido" in request.GET %}
+        <p style="color: white; text-align: center;">El mensaje se ha enviado correctamente</p>
+     {% endif %}
+    <form action="" method="POST" style="text-align: center;">
+        {% csrf_token %}  
+        <table style="color: white; margin: 20px auto;">
+            {{formulario_contacto.as_table}}
+        </table>
+        <input type="submit" value="Enviar" style="width: 100px; margin-bottom: 10px;">
+    </form>
+</div>
+
+{%endblock%}
+
+
+{{formulario_contacto.as_table}}
