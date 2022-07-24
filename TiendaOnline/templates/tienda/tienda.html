@@ -1,0 +1,37 @@
+{%extends "base.html" %}
+
+{%load static%}
+
+{%block content %}
+<!--
+    las clases con las que estoy haciendo el css estan todas cargadas en el botstrap
+-->
+<div class="container">
+    <div style="float:top; margin: 10px;">
+        {% if request.user.is_authenticated %}
+            {%include "carro/widget.html"%}
+        {% else %}
+            <div class="alert alert-danger"; style="text-align: center;" >Para realizar la compra debe registrarse</div> 
+        {% endif %}
+    </div>
+    <div class="row">
+{% for producto in productos %}
+        <div class="col-md-4">
+        <div class="card" style="width: 100%; margin: 10px 10px;">
+            <img src="{{producto.imagen.url}}" class="card-img-top">
+            <div class="card-body" style="text-align: center;">
+                <h6 class="card-title">{{producto.nombre}}</h6>
+                <p class="card-text">{{producto.descripcion}}</p>
+                <p class="card-text">$&nbsp;{{producto.precio}}</p>
+                            
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'carro:agregar' producto.id %}" class="btn btn-succes">Agregar al carrito</a>
+            </div>
+        </div>
+        </div>
+
+{%endfor%}
+    </div>
+</div>
+{%endblock%}

@@ -1,0 +1,51 @@
+<table class="table table-bordered" style="color: rgb(255, 255, 255)">
+
+    <thead>
+        <tr>
+            <th colspan="3" class="text-center">
+                Carrito de compras
+            </th>
+        </tr>
+        <tr>
+            <th>Producto</th>
+            <th>Color</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {%if request.session.carro.items %}
+            {%for keys, value in request.session.carro.items%}
+                <!--a cada bucle se agrega una fila con la compra-->
+                <tr class="text-center">
+                    <td>{{value.nombre}}</td>
+                    <td>{{value.color}}</td>
+                    <td>
+                        {{value.precio}}
+                        <a href="{% url 'carro:eliminar' value.id %}" class="btn btn-sm btn-succes">Eliminar</a>
+                    </td>
+                </tr>
+            {%endfor%}
+        {% else %}
+            <tr>
+                <td colspan="3">
+                    <div class="alert alert-danger text-center">
+                        Sin productos
+                    </div>
+                </td>
+            </tr>
+        {%endif%}
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="3">
+                Subtotal : $ {{importe_total}}
+                <a href="{% url 'Autentificacion' %}" class="btn btn-success" style= "float: right;">Hacer Pedido</a>
+            </td>
+            
+        </tr>
+    </tfoot>
+
+
+</table>
